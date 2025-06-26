@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to PDF Converter | WeLovePDF</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4361ee',
+                        secondary: '#3a0ca3',
+                        accent: '#4895ef',
+                        dark: '#1a1a1a',
+                        light: '#f8f9fa',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'fade-in-up': 'fadeInUp 1s ease-out',
+                        'fade-in-down': 'fadeInDown 1s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        /* Hide scrollbars but keep functionality */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        /* Mobile menu animations */
+        .mobile-menu {
+            width: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            transform: translateX(-100%);
+        }
+        .mobile-menu.open {
+            width: 280px;
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-out;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Tool card styles */
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .tool-icon {
+            transition: all 0.3s ease;
+        }
+        .tool-card:hover .tool-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .upload-area:hover {
+            border-color: #4895ef;
+            background-color: rgba(72, 149, 239, 0.05);
+        }
+        .category-title {
+            background: linear-gradient(90deg, #4361ee, #4895ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-icon {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3, #4895ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .convert-btn {
+            background: linear-gradient(135deg, #4361ee, #4895ef);
+            transition: all 0.3s ease;
+        }
+        .convert-btn:hover {
+            background: linear-gradient(135deg, #3a0ca3, #4361ee);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased dark:bg-gray-900 overflow-x-hidden">
+    <!-- Header -->
+    <header class="bg-primary text-white shadow-md fixed w-full z-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <i class="fas fa-file-pdf text-3xl mr-2 logo-icon"></i>
+                    <span class="text-2xl font-bold">WeLovePDF</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="index.html" class="hover:text-accent transition duration-300 font-medium">Home</a>
+                    <a href="index.html#tools" class="hover:text-accent transition duration-300 font-medium">All Tools</a>
+                    <a href="index.html#features" class="hover:text-accent transition duration-300 font-medium">Features</a>
+                </nav>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center space-x-4">
+                    <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition duration-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden text-2xl focus:outline-none ml-4">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Mobile Menu -->
+    <div class="fixed inset-0 z-40">
+        <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50"></div>
+        <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-xl z-50">
+            <div class="h-full overflow-y-auto py-4">
+                <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-file-pdf text-3xl mr-2 logo-icon"></i>
+                        <span class="text-2xl font-bold">WeLovePDF</span>
+                    </div>
+                    <button id="mobile-menu-close" class="text-2xl text-gray-500 dark:text-gray-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="px-4 py-6">
+                    <!-- Convert to PDF -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3 category-title">CONVERT TO PDF</h3>
+                        <ul class="space-y-2">
+                            <li><a href="jpg-to-pdf.html" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-image text-blue-500 mr-2"></i> JPG to PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-word text-blue-500 mr-2"></i> WORD to PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> POWERPOINT to PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-excel text-blue-500 mr-2"></i> EXCEL to PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-code text-blue-500 mr-2"></i> HTML to PDF</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Convert from PDF -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3 category-title">CONVERT FROM PDF</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-image text-blue-500 mr-2"></i> PDF to JPG</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-word text-blue-500 mr-2"></i> PDF to WORD</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> PDF to POWERPOINT</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-excel text-blue-500 mr-2"></i> PDF to EXCEL</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-file-archive text-blue-500 mr-2"></i> PDF to PDF/A</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Edit PDF -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3 category-title">EDIT PDF</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-redo text-blue-500 mr-2"></i> Rotate PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-sort-numeric-up text-blue-500 mr-2"></i> Add page numbers</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-stamp text-blue-500 mr-2"></i> Add watermark</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-crop text-blue-500 mr-2"></i> Crop PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-signature text-blue-500 mr-2"></i> Sign PDF</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Other Tools -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-3 category-title">OTHER TOOLS</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-object-group text-blue-500 mr-2"></i> Merge PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-cut text-blue-500 mr-2"></i> Split PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-compress-alt text-blue-500 mr-2"></i> Compress PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-lock text-blue-500 mr-2"></i> Protect PDF</a></li>
+                            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"><i class="fas fa-unlock text-blue-500 mr-2"></i> Unlock PDF</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Page Heading -->
+                <div class="text-center mb-12">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 animate__animated animate__fadeIn">
+                        <i class="fas fa-image text-primary dark:text-accent mr-3"></i>
+                        <span class="category-title">JPG to PDF Converter</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 animate__animated animate__fadeIn">
+                        Convert your JPG images to PDF documents quickly and easily. Perfect for creating portfolios, photo albums, or document scans.
+                    </p>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-xl p-6 mb-8 animate__animated animate__fadeInUp">
+                    <div class="upload-area border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center cursor-pointer transition duration-300">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-primary dark:text-accent mb-4 animate-pulse-slow"></i>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Select JPG images</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">or drag and drop JPG files here</p>
+                        <button class="convert-btn text-white px-8 py-3 rounded-md font-medium">
+                            Select Files
+                        </button>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Supports JPG, JPEG up to 50MB</p>
+                    </div>
+                </div>
+
+                <!-- Convert Button -->
+                <div class="text-center animate__animated animate__fadeInUp animate__delay-1s">
+                    <button class="convert-btn text-white px-12 py-4 rounded-md font-medium text-lg">
+                        <i class="fas fa-exchange-alt mr-2"></i> Convert to PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- How It Works Section -->
+    <section class="py-12 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center">How to Convert JPG to PDF</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Step 1 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-primary dark:text-accent">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Upload JPG Files</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Click the upload button or drag and drop your JPG images into the upload area.
+                        </p>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-primary dark:text-accent">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Convert to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Click the "Convert to PDF" button to start the conversion process.
+                        </p>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-primary dark:text-accent">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Download PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Download your PDF file when the conversion is complete.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Try More Tools Section -->
+    <section class="py-12 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                    Try Our Other <span class="text-primary dark:text-accent">PDF Tools</span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    We offer a complete suite of free PDF tools for all your document needs
+                </p>
+            </div>
+            
+            <!-- Convert to PDF -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 category-title">CONVERT TO PDF</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <!-- WORD to PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-word text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">WORD to PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert DOC and DOCX files to PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- POWERPOINT to PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-powerpoint text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">POWERPOINT to PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert PPT and PPTX files to PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- EXCEL to PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-excel text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">EXCEL to PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert XLS and XLSX files to PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- HTML to PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-code text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">HTML to PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert web pages to PDF documents.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Convert from PDF -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 category-title">CONVERT FROM PDF</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <!-- PDF to JPG -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-image text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">PDF to JPG</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert PDF pages to JPG images.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- PDF to WORD -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-word text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">PDF to WORD</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert PDF to editable DOC/DOCX.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- PDF to POWERPOINT -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-powerpoint text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">PDF to POWERPOINT</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert PDF to editable PPT/PPTX.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- PDF to EXCEL -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-excel text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">PDF to EXCEL</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert PDF to editable XLS/XLSX.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                    
+                    <!-- PDF to PDF/A -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-file-archive text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">PDF to PDF/A</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Convert to archival PDF/A format.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Convert Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Edit PDF -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 category-title">EDIT PDF</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <!-- Rotate PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-redo text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Rotate PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Rotate PDF pages to correct orientation.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Edit Now
+                        </button>
+                    </div>
+                    
+                    <!-- Add page numbers -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-sort-numeric-up text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Add Page Numbers</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Add page numbers to your PDF document.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Edit Now
+                        </button>
+                    </div>
+                    
+                    <!-- Add watermark -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-stamp text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Add Watermark</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Add text or image watermark to PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Edit Now
+                        </button>
+                    </div>
+                    
+                    <!-- Crop PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-crop text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Crop PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Crop margins or unwanted areas.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Edit Now
+                        </button>
+                    </div>
+                    
+                    <!-- Sign PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-signature text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Sign PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Add digital signatures to your PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Sign Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other Tools -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 category-title">OTHER PDF TOOLS</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <!-- Merge PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-object-group text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Merge PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Combine multiple PDFs into one.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Merge Now
+                        </button>
+                    </div>
+                    
+                    <!-- Split PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-cut text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Split PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Split PDF into multiple files.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Split Now
+                        </button>
+                    </div>
+                    
+                    <!-- Compress PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-compress-alt text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Compress PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Reduce PDF file size.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Compress Now
+                        </button>
+                    </div>
+                    
+                    <!-- Protect PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-lock text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Protect PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Add password protection.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Protect Now
+                        </button>
+                    </div>
+                    
+                    <!-- Unlock PDF -->
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition duration-500">
+                        <div class="flex items-center mb-4">
+                            <div class="tool-icon w-12 h-12 bg-blue-100 dark:bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-unlock text-primary dark:text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Unlock PDF</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">Remove password from PDF.</p>
+                        <button class="convert-btn text-white px-4 py-2 rounded-md text-sm w-full">
+                            Unlock Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-file-pdf text-3xl mr-2 logo-icon"></i>
+                        <span class="text-2xl font-bold">WeLovePDF</span>
+                    </div>
+                    <p class="mb-4">
+                        The ultimate collection of free online PDF tools for all your document needs.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">PDF Tools</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">Merge PDF</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Split PDF</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Compress PDF</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Convert PDF</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p>&copy; 2023 WeLovePDF. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+            mobileMenuOverlay.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden');
+        }
+        
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+        
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // File Upload Handling
+        const uploadArea = document.querySelector('.upload-area');
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.multiple = true;
+        fileInput.accept = 'image/jpeg';
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                uploadArea.innerHTML = `
+                    <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">${e.target.files.length} file(s) selected</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Ready for conversion</p>
+                    <button class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-8 py-3 rounded-md font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300">
+                        Change Files
+                    </button>
+                `;
+                
+                // Reattach click event to the new button
+                uploadArea.querySelector('button').addEventListener('click', (ev) => {
+                    ev.stopPropagation();
+                    fileInput.click();
+                });
+            }
+        });
+        
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('border-accent', 'bg-blue-50', 'dark:bg-gray-600');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('border-accent', 'bg-blue-50', 'dark:bg-gray-600');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-accent', 'bg-blue-50', 'dark:bg-gray-600');
+            
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                const event = new Event('change');
+                fileInput.dispatchEvent(event);
+            }
+        });
+    </script>
+</body>
+</html>
