@@ -185,11 +185,11 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-bold mb-3 text-blue-500">Convert to PDF</h3>
                     <ul class="space-y-2">
-                        <li><a href="./tools/jpg-to-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-image text-blue-500 mr-2"></i> JPG to PDF</a></li>
-                        <li><a href="word_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-2"></i> Word to PDF</a></li>
-                        <li><a href="ppt_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> PPT to PDF</a></li>
-                        <li><a href="excel_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-2"></i> Excel to PDF</a></li>
-                        <li><a href="txt_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-2"></i> TXT to PDF</a></li>
+                        <li><a href="./tools/jpg_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-image text-blue-500 mr-2"></i> JPG to PDF</a></li>
+                        <li><a href="./tools/word-to-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-2"></i> Word to PDF</a></li>
+                        <li><a href="./tools/ppt_to_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> PPT to PDF</a></li>
+                        <li><a href="./tools/excel-to-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-2"></i> Excel to PDF</a></li>
+                        <li><a href="./tools/txt-to-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-2"></i> TXT to PDF</a></li>
                     </ul>
                 </div>
                 
@@ -197,11 +197,10 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-bold mb-3 text-blue-500">Convert from PDF</h3>
                     <ul class="space-y-2">
-                        <li><a href="pdf_to_jpg.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-image text-blue-500 mr-2"></i> PDF to JPG</a></li>
-                        <li><a href="pdf_to_word.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-2"></i> PDF to Word</a></li>
-                        <li><a href="pdf_to_ppt.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> PDF to PPT</a></li>
-                        <li><a href="pdf_to_excel.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-2"></i> PDF to Excel</a></li>
-                        <li><a href="pdf_to_txt.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-2"></i> PDF to TXT</a></li>
+                        <li><a href="./tools/pdf_to_jpg.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-image text-blue-500 mr-2"></i> PDF to JPG</a></li>
+                        <li><a href="./tools/pdf_to_word.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-2"></i> PDF to Word</a></li>
+                        <li><a href="./tools/pdf_to_ppt.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-2"></i> PDF to PPT</a></li>
+                        <li><a href="./tools/pdf_to_excel.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-2"></i> PDF to Excel</a></li>
                     </ul>
                 </div>
                 
@@ -211,11 +210,9 @@
                     <ul class="space-y-2">
                         <li><a href="./tools/merge-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-object-group text-blue-500 mr-2"></i> Merge PDF</a></li>
                         <li><a href="./tools/split-pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-cut text-blue-500 mr-2"></i> Split PDF</a></li>
-                        <li><a href="compress_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-compress-alt text-blue-500 mr-2"></i> Compress PDF</a></li>
-                        <li><a href="protect_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-lock text-blue-500 mr-2"></i> Protect PDF</a></li>
-                        <li><a href="unlock_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-unlock text-blue-500 mr-2"></i> Unlock PDF</a></li>
-                        <li><a href="rotate_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-redo text-blue-500 mr-2"></i> Rotate PDF</a></li>
-                        <li><a href="organize_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-sort-numeric-down text-blue-500 mr-2"></i> Organize PDF</a></li>
+                        <li><a href="./tools/compress_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-compress-alt text-blue-500 mr-2"></i> Compress PDF</a></li>
+                        <li><a href="./tools/protect_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-lock text-blue-500 mr-2"></i> Protect PDF</a></li>
+                        <li><a href="./tools/unlock_pdf.php" class="block px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-unlock text-blue-500 mr-2"></i> Unlock PDF</a></li>
                     </ul>
                 </div>
             </div>
@@ -276,7 +273,7 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- JPG to PDF -->
-                <a href="./tools/jpg-to-pdf.php" class="tool-card bg-white p-6 rounded-xl">
+                <a href="./tools/jpg_to_pdf.php" class="tool-card bg-white p-6 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
                         <i class="fas fa-image text-blue-500 text-xl"></i>
                     </div>
@@ -288,7 +285,7 @@
                 </a>
                 
                 <!-- Word to PDF -->
-                <a href="word_to_pdf.php" class="tool-card bg-white p-6 rounded-xl">
+                <a href="./tools/word-to-pdf.php" class="tool-card bg-white p-6 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
                         <i class="fas fa-file-word text-blue-500 text-xl"></i>
                     </div>
@@ -312,7 +309,7 @@
                 </a>
                 
                 <!-- Compress PDF -->
-                <a href="compress_pdf.php" class="tool-card bg-white p-6 rounded-xl">
+                <a href="./tools/compress-pdf.php" class="tool-card bg-white p-6 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
                         <i class="fas fa-compress-alt text-blue-500 text-xl"></i>
                     </div>
@@ -341,11 +338,11 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4 text-blue-500">Convert to PDF</h3>
                     <ul class="space-y-2">
-                        <li><a href="jpg_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-image text-blue-500 mr-3 w-5 text-center"></i> JPG to PDF</a></li>
-                        <li><a href="word_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-3 w-5 text-center"></i> Word to PDF</a></li>
-                        <li><a href="ppt_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-3 w-5 text-center"></i> PPT to PDF</a></li>
-                        <li><a href="excel_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-3 w-5 text-center"></i> Excel to PDF</a></li>
-                        <li><a href="txt_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-3 w-5 text-center"></i> TXT to PDF</a></li>
+                        <li><a href="./tools/jpg_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-image text-blue-500 mr-3 w-5 text-center"></i> JPG to PDF</a></li>
+                        <li><a href="./tools/word-to-pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-3 w-5 text-center"></i> Word to PDF</a></li>
+                        <li><a href="./tools/ppt_to_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-3 w-5 text-center"></i> PPT to PDF</a></li>
+                        <li><a href="./tools/excel-to-pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-3 w-5 text-center"></i> Excel to PDF</a></li>
+                        <li><a href="./tools/txt-to-pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-3 w-5 text-center"></i> TXT to PDF</a></li>
                     </ul>
                 </div>
                 
@@ -353,11 +350,10 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4 text-blue-500">Convert from PDF</h3>
                     <ul class="space-y-2">
-                        <li><a href="pdf_to_jpg.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-image text-blue-500 mr-3 w-5 text-center"></i> PDF to JPG</a></li>
-                        <li><a href="pdf_to_word.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-3 w-5 text-center"></i> PDF to Word</a></li>
-                        <li><a href="pdf_to_ppt.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-3 w-5 text-center"></i> PDF to PPT</a></li>
-                        <li><a href="pdf_to_excel.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-3 w-5 text-center"></i> PDF to Excel</a></li>
-                        <li><a href="pdf_to_txt.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-alt text-blue-500 mr-3 w-5 text-center"></i> PDF to TXT</a></li>
+                        <li><a href="./tools/pdf_to_jpg.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-image text-blue-500 mr-3 w-5 text-center"></i> PDF to JPG</a></li>
+                        <li><a href="./tools/pdf_to_word.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-word text-blue-500 mr-3 w-5 text-center"></i> PDF to Word</a></li>
+                        <li><a href="./tools/pdf_to_ppt.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-powerpoint text-blue-500 mr-3 w-5 text-center"></i> PDF to PPT</a></li>
+                        <li><a href="./tools/pdf_to_excel.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-file-excel text-blue-500 mr-3 w-5 text-center"></i> PDF to Excel</a></li>
                     </ul>
                 </div>
                 
@@ -367,11 +363,9 @@
                     <ul class="space-y-2">
                         <li><a href="./tools/merge-pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-object-group text-blue-500 mr-3 w-5 text-center"></i> Merge PDF</a></li>
                         <li><a href="./tools/split-pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-cut text-blue-500 mr-3 w-5 text-center"></i> Split PDF</a></li>
-                        <li><a href="compress_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-compress-alt text-blue-500 mr-3 w-5 text-center"></i> Compress PDF</a></li>
-                        <li><a href="protect_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-lock text-blue-500 mr-3 w-5 text-center"></i> Protect PDF</a></li>
-                        <li><a href="unlock_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-unlock text-blue-500 mr-3 w-5 text-center"></i> Unlock PDF</a></li>
-                        <li><a href="rotate_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-redo text-blue-500 mr-3 w-5 text-center"></i> Rotate PDF</a></li>
-                        <li><a href="organize_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-sort-numeric-down text-blue-500 mr-3 w-5 text-center"></i> Organize PDF</a></li>
+                        <li><a href="./tools/compress_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-compress-alt text-blue-500 mr-3 w-5 text-center"></i> Compress PDF</a></li>
+                        <li><a href="./tools/protect_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-lock text-blue-500 mr-3 w-5 text-center"></i> Protect PDF</a></li>
+                        <li><a href="./tools/unlock_pdf.php" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 transition"><i class="fas fa-unlock text-blue-500 mr-3 w-5 text-center"></i> Unlock PDF</a></li>
                     </ul>
                 </div>
             </div>
@@ -450,10 +444,10 @@
                 <div>
                     <h4 class="text-lg font-bold mb-4">PDF Tools</h4>
                     <ul class="space-y-2">
-                        <li><a href="merge_pdf.php" class="text-gray-500 hover:text-blue-500 transition">Merge PDF</a></li>
-                        <li><a href="word_to_pdf.php" class="text-gray-500 hover:text-blue-500 transition">Word to PDF</a></li>
-                        <li><a href="compress_pdf.php" class="text-gray-500 hover:text-blue-500 transition">Compress PDF</a></li>
-                        <li><a href="jpg_to_pdf.php" class="text-gray-500 hover:text-blue-500 transition">JPG to PDF</a></li>
+                        <li><a href="./tools/merge-pdf.php" class="text-gray-500 hover:text-blue-500 transition">Merge PDF</a></li>
+                        <li><a href="./tools/word-to-pdf.php" class="text-gray-500 hover:text-blue-500 transition">Word to PDF</a></li>
+                        <li><a href="./tools/compress_pdf.php" class="text-gray-500 hover:text-blue-500 transition">Compress PDF</a></li>
+                        <li><a href="./tools/jpg_to_pdf.php" class="text-gray-500 hover:text-blue-500 transition">JPG to PDF</a></li>
                     </ul>
                 </div>
                 
